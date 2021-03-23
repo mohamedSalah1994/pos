@@ -69,6 +69,7 @@ return [
     'sale_price' => 'سعر البيع',
     'stock' => 'المخزن',
     'profit_percent' => 'المكسب',
+    'searchByCategory' => 'بحث بواسطة القسم',
 
     'ar' => [
         'name' => 'الاسم بالغه العربيه',

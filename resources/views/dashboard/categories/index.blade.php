@@ -39,6 +39,8 @@ Categories
 @section('js')
     <script src="{{ asset('dashboard_files/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('dashboard_files/js/dataTables.bootstrap.min.js') }}"></script>
+    
+
 
 @endsection
 

@@ -18,9 +18,20 @@ Products
     </section>
 @endsection
 @section('content')
-<livewire:products />
+<section style="padding-top: 60px">
+<div class="containetr">
+    <div class="row">
+        <div class="col-md-12">
+            <livewire:products />
+        </div>
+    </div>
+</div>
+</section>
+
 @endsection
 @section('js')
+
+
     <script src="{{ asset('dashboard_files/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('dashboard_files/js/dataTables.bootstrap.min.js') }}"></script>
 

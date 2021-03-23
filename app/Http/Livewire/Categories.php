@@ -2,17 +2,27 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
+use App\Models\Product;
 use Livewire\Component;
+use App\Models\Category;
 
 class Categories extends Component
 {
-    public $show_table = true, $name, $name_en, $updateMode = false, $cat_id;
+    public $show_table = true, $name, $name_en, $updateMode = false, $cat_id , $category_id;
+    public $sorted_table = true;
+
 
     protected $rules = [
         'name' => 'required|unique',
         'name_en' => 'required|unique',
     ];
+
+    public function sortByCategory($id){
+
+         $this->cat_id = $id;
+        $this->show_table = false;
+
+    }
 
     public function render()
     {
@@ -20,13 +30,22 @@ class Categories extends Component
         return view('livewire.categories', [
 
             'categories' => Category::all(),
+
+            'products' => Product::where('category_id' , $this->cat_id)->get(),
+
         ]);
     }
+
+
+
+
+
 
     public function showformadd()
     {
 
-        $this->show_table = false;
+         $this->show_table = false;
+        $this->sorted_table = false;
 
     }
 
@@ -35,7 +54,7 @@ class Categories extends Component
         $this->validate([
             'name' => 'required|unique:categories,name->ar,'.$this->id,
             'name_en' => 'required|unique:categories,name->en,'.$this->id,
-        
+
         ]);
         try {
 
@@ -46,7 +65,7 @@ class Categories extends Component
 
             $categories->save();
 
-            session()->flash('message', __('site.added_successfully'));
+            session()->flash('success', __('site.added_successfully'));
 
             $this->clearForm();
             $this->show_table = true;
@@ -69,7 +88,11 @@ class Categories extends Component
 
     public function submitForm_edit()
     {
-        $this->validate();
+        $this->validate([
+            'name' => 'required|unique:categories,name->ar,'.$this->id,
+            'name_en' => 'required|unique:categories,name->en,'.$this->id,
+
+        ]);
 
         if ($this->cat_id) {
             $category = Category::find($this->cat_id);
@@ -78,7 +101,7 @@ class Categories extends Component
             ]);
 
         }
-        session()->flash('message', __('site.updated_successfully'));
+        session()->flash('success', __('site.updated_successfully'));
 
         $this->show_table = true;
     }
@@ -86,9 +109,11 @@ class Categories extends Component
     public function delete($id)
     {
         Category::findOrFail($id)->delete();
+        
 
-        session()->flash('message_delete', __('site.deleted_successfully'));
+        // session()->flash('message_delete', __('site.deleted_successfully'));
 
+         session()->flash('success', __('site.deleted_successfully'));
     }
 
     public function clearForm()

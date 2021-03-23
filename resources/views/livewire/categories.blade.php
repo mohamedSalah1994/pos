@@ -1,6 +1,6 @@
 <div>
-<div>
-        @if (session()->has('message'))
+    <div>
+        {{-- @if (session()->has('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
             </div>
@@ -9,6 +9,20 @@
             <div class="alert alert-danger">
                 {{ session('message_delete') }}
             </div>
+        @endif --}}
+
+        @if (session('success'))
+
+            <script>
+                new Noty({
+                    type: 'success',
+                    layout: 'topRight',
+                    text: "{{ session('success') }}",
+                    timeout: 2000,
+                    killer: true
+                }).show();
+
+            </script>
         @endif
 
     </div>
@@ -24,8 +38,7 @@
                     <div class="col-sm-8">
 
                         <h3 class="box-title">{{ __('site.categories') }}</h3>
-
-
+                        <small>({{ \App\Models\Category::count() }})</small>
 
                     </div>
                     <div class="col-sm-4">
@@ -66,6 +79,12 @@
                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                             colspan="1" aria-label="Browser: activate to sort column ascending"
                                             style="width: 18%;">
+                                            button
+                                        </th>
+
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 18%;">
                                             {{ __('site.action') }}
                                         </th>
 
@@ -78,6 +97,11 @@
                                             <?php $i++; ?>
                                             <td class="sorting_1">{{ $i }}</td>
                                             <td>{{ $category->name }}</td>
+                                            <td> <button type="button"
+                                                    wire:click="sortByCategory({{ $category->id }})"
+                                                    class="btn btn-primary ">
+
+                                                    {{ __('site.related_products') }}</button></td>
                                             <td>
                                                 @if (auth()
         ->user()
@@ -113,7 +137,28 @@
 
 
                                         {{-- ------- delete modal -------- --}}
-                                        <div class="modal modal-danger fade in" id="modal-danger{{ $category->id }}">
+                                        {{-- <div class="modal fade in" id="modal-default{{ $category->id }}" style=" padding-right: 15px;">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span></button>
+                                                  <h4 class="modal-title">Default Modal</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <p>One fine body…</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                                  <button type="button" wire:click="delete({{ $category->id }})" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                              </div>
+                                              <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                          </div> --}}
+                                        {{-- ------- --}}
+                                        <div class="modal fade in" id="modal-danger{{ $category->id }}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -123,14 +168,16 @@
                                                         <h4 class="modal-title">{{ __('site.delete') }}</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>One fine body…</p>
-                                                        <input type="hidden" wire:model="cat_id">
+                                                        <p>{{ __('site.confirm_delete') }}</p>
+
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-outline pull-left"
+                                                        <button type="button" class="btn btn-default pull-left"
                                                             data-dismiss="modal">Close</button>
-                                                        <button type="button"  wire:click="delete({{ $category->id }})"
-                                                            data-dismiss="modal" class="btn btn-outline">{{ __('site.delete') }}</button>
+                                                        <button type="button"
+                                                            wire:click="delete({{ $category->id }})"
+                                                            data-dismiss="modal"
+                                                            class="btn btn-danger">{{ __('site.delete') }}</button>
                                                     </div>
                                                 </div>
                                                 <!-- /.modal-content -->
@@ -149,7 +196,8 @@
             <!-- /.box-body -->
 
         </div>
-
+    @elseif ($sorted_table)
+        @include('livewire.products')
     @else
         @include('dashboard.categories.create')
     @endif

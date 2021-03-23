@@ -24,6 +24,18 @@
                 font-family: 'Cairo', sans-serif !important;
             }
         </style>
+        <style>
+            .rounded-lg, .rounded-b-none
+            {
+                width: 1140px;
+            }
+
+            .form-input
+            {
+                width: 450px;
+                height: 30px;
+            }
+        </style>
     @else
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link rel="stylesheet" href="{{ asset('dashboard_files/css/font-awesome.min.css') }}">
