@@ -31,5 +31,9 @@ Route::group(
             Route::view('categories', 'dashboard.categories.index');
 //=======================================products=================================================
             Route::view('products', 'dashboard.products.index');
+//=======================================clients==================================================
+            Route::view('clients', 'dashboard.clients.index');
+//=======================================orders===================================================
+            Route::view('orders', 'dashboard.orders.index');
         });
     });

@@ -68,12 +68,14 @@
         <div class="box-body">
             <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 
+
                 <div class="row">
                     <div class="col-sm-12">
                         <table id="example1" class="table table-bordered table-striped dataTable" role="grid"
                             aria-describedby="example1_info">
                             <thead>
                                 <tr role="row">
+
                                     <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1"
                                         colspan="1" aria-sort="ascending"
                                         aria-label="Rendering engine: activate to sort column descending"
@@ -202,5 +204,20 @@
 
     @else
         @include('dashboard.products.create')
+        <script>
+            // image preview
+        $(".image").change(function () {
+
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.image-preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(this.files[0]);
+        }
+        });
+        </script>
     @endif
 </div>

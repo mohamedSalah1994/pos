@@ -26,9 +26,12 @@
             @if (auth()->user()->hasPermission('products_read'))
             <li><a href="{{url('dashboard/products')}}"><i class="fa fa-book"></i><span>{{ __('site.products') }}</span></a></li>
             @endif
+
+            @if (auth()->user()->hasPermission('clients_read'))
+            <li><a href="{{url('dashboard/clients')}}"><i class="fa fa-book"></i><span>{{ __('site.clients') }}</span></a></li>
+            @endif
             {{----}}
             {{----}}
-            {{--<li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-users"></i><span>@lang('site.users')</span></a></li>--}}
 
             {{--<li class="treeview">--}}
             {{--<a href="#">--}}

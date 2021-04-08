@@ -65,11 +65,11 @@
     </div>
     <div class="form-group">
         <label>@lang('site.image')</label>
-        <input type="file" wire:model="image" class="form-control image">
+        <input type="file" wire:model="image" class="image form-control ">
     </div>
 
     <div class="form-group">
-        <img src="{{ asset('uploads/product_images/default.jpg') }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
+        <img src="{{ asset('uploads/product_images/default.jpg') }}" style="width: 100px" class="image-preview img-thumbnail" alt="">
     </div>
 
 
@@ -126,3 +126,6 @@
     </div><!-- end of box -->
 
 </section>
+
+
+

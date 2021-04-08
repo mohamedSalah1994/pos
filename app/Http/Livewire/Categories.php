@@ -57,8 +57,6 @@ class Categories extends Component
 
         ]);
         try {
-
-
             $categories = new Category();
 
             $categories->name = ['en' => $this->name_en, 'ar' => $this->name];
@@ -74,13 +72,15 @@ class Categories extends Component
             $this->catchError = $e->getMessage();
         };
     }
+
     public function edit($id)
     {
         $this->show_table = false;
+        $this->sorted_table = false;
         $this->updateMode = true;
 
         $category = Category::where('id', $id)->first();
-        $this->cat_id = $id;
+         $this->cat_id = $id;
         $this->name = $category->getTranslation('name', 'ar');
         $this->name_en = $category->getTranslation('name', 'en');
 
@@ -97,7 +97,8 @@ class Categories extends Component
         if ($this->cat_id) {
             $category = Category::find($this->cat_id);
             $category->update([
-                $category->name = ['ar' => $this->name, 'en' => $this->name_en],
+                
+                'name' => ['en' => $this->name_en, 'ar' => $this->name],
             ]);
 
         }
@@ -109,7 +110,7 @@ class Categories extends Component
     public function delete($id)
     {
         Category::findOrFail($id)->delete();
-        
+
 
         // session()->flash('message_delete', __('site.deleted_successfully'));
 
