@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\Dashboard\WelcomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\Dashboard\WelcomeController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -33,7 +34,9 @@ Route::group(
             Route::view('products', 'dashboard.products.index');
 //=======================================clients==================================================
             Route::view('clients', 'dashboard.clients.index');
+            Route::resource('clients.orders', OrderController::class);
 //=======================================orders===================================================
             Route::view('orders', 'dashboard.orders.index');
+           
         });
     });

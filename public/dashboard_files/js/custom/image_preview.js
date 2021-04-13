@@ -10,4 +10,5 @@ $(".image").change(function () {
 
         reader.readAsDataURL(this.files[0]);
     }
+
 });

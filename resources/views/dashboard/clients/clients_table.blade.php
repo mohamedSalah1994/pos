@@ -73,7 +73,7 @@
                                         @if (auth()
         ->user()
         ->hasPermission('orders_create'))
-                                            <button wire:click="showOrdersForm({{ $client->id }})" class="btn btn-primary btn-sm ">{{ __('site.add_order') }}</button>
+                                            <a href="{{ route('clients.orders.create', $client->id) }}" class="btn btn-primary btn-sm ">{{ __('site.add_order') }}</a>
                                         @else
                                         <button class="btn btn-primary btn-sm disabled">{{ __('site.add_order') }}</button>
                                         @endif
